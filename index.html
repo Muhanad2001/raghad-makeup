@@ -51,4 +51,37 @@ footer{text-align:center;padding:35px;color:#806b74}
 <textarea id="notes" class="full" placeholder="ملاحظات إضافية (اختياري)"></textarea><div class="full"><button>إرسال طلب الحجز</button></div>
 </form><p style="color:#eadde1;font-size:12px">ملاحظة: هذه النسخة تعرض نموذج الحجز للعميل. ربط الحجوزات بقاعدة بيانات واستقبالها لديك نضيفه في الخطوة التالية.</p></section>
 <footer>Raghad Makeup ✨ — 94888701</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://ulzajfcyjfwxtqppngjh.supabase.co";
+const SUPABASE_KEY = "sb_publishable_8HSzzkSDYeqg67Dt7P1ctg_QfA00gAU";
+
+const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+async function book(e) {
+  e.preventDefault();
+
+  const { error } = await supabaseClient
+    .from("bookings")
+    .insert([{
+      name: document.getElementById("name").value,
+      service: document.getElementById("service").value,
+      date: document.getElementById("date").value,
+      time: document.getElementById("time").value,
+      notes: document.getElementById("notes").value
+    }]);
+
+  if (error) {
+    alert("حدث خطأ أثناء الحجز ❌");
+    console.error(error);
+    return;
+  }
+
+  alert("تم إرسال الحجز بنجاح ✅");
+  e.target.reset();
+}
 </script>
