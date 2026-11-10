@@ -62,16 +62,18 @@ const supabaseClient = supabase.createClient(
   SUPABASE_KEY
 );
 
+<script>
 async function book(e) {
   e.preventDefault();
 
   const { error } = await supabaseClient
     .from("bookings")
     .insert([{
-      name: document.getElementById("name").value,
+      customer_name: document.getElementById("name").value,
+      phone: document.getElementById("phone").value,
       service: document.getElementById("service").value,
-      date: document.getElementById("date").value,
-      time: document.getElementById("time").value,
+      booking_date: document.getElementById("date").value,
+      booking_time: document.getElementById("time").value,
       notes: document.getElementById("notes").value
     }]);
 
