@@ -1,1 +1,261 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إدارة حجوزات رغد | Raghad Makeup</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#f8f3f6;
+color:#382832;
+}
+header{
+background:#382832;
+color:white;
+padding:22px;
+text-align:center;
+}
+h1{margin:0 0 8px}
+.container{
+max-width:1100px;
+margin:30px auto;
+padding:0 15px;
+}
+.login,.dashboard{
+background:white;
+border-radius:18px;
+padding:25px;
+box-shadow:0 8px 30px #00000012;
+}
+input,button,select{
+width:100%;
+padding:14px;
+margin:8px 0;
+border:1px solid #ddd;
+border-radius:10px;
+font-size:16px;
+}
+button{
+background:#d98eab;
+color:white;
+border:0;
+font-weight:bold;
+cursor:pointer;
+}
+button:hover{opacity:.9}
+.hidden{display:none}
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+th,td{
+padding:13px 8px;
+border-bottom:1px solid #eee;
+text-align:right;
+}
+th{background:#f8e9ef}
+.status{
+padding:6px 10px;
+border-radius:20px;
+background:#eee;
+display:inline-block;
+}
+.confirm{background:#dff3e4}
+.cancel{background:#f8dddd}
+.top{
+display:flex;
+justify-content:space-between;
+gap:10px;
+align-items:center;
+}
+.logout{
+width:auto;
+padding:10px 18px;
+background:#382832;
+}
+.card{
+background:#fff;
+padding:18px;
+margin-top:15px;
+border-radius:15px;
+box-shadow:0 5px 20px #00000010;
+}
+@media(max-width:700px){
+table{font-size:13px}
+th,td{padding:10px 5px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Raghad Makeup ✨</h1>
+<div>لوحة إدارة الحجوزات</div>
+</header>
+
+<div class="container">
+
+<div id="loginBox" class="login">
+<h2>تسجيل دخول الإدارة 🔐</h2>
+
+<input id="email" type="email" placeholder="البريد الإلكتروني">
+<input id="password" type="password" placeholder="كلمة المرور">
+
+<button onclick="login()">دخول</button>
+
+<p id="loginMsg"></p>
+</div>
+
+<div id="dashboard" class="dashboard hidden">
+
+<div class="top">
+<div>
+<h2>الحجوزات 📋</h2>
+<p>جميع حجوزات العملاء</p>
+</div>
+
+<button class="logout" onclick="logout()">تسجيل خروج</button>
+</div>
+
+<input
+id="search"
+placeholder="🔎 البحث باسم العميل..."
+oninput="loadBookings()"
+>
+
+<div id="bookings"></div>
+
+</div>
+
+</div>
+
+<script>
+
+const SUPABASE_URL = "https://ulzajfcyjfwxtqppngj.supabase.co";
+
+const SUPABASE_KEY = "sb_publishable_8HSzzkSDYeqg67Dt7P1ctg_QfA00gAU";
+
+const supabaseClient =
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+
+async function login(){
+
+const email =
+document.getElementById("email").value;
+
+const password =
+document.getElementById("password").value;
+
+const {error} =
+await supabaseClient.auth.signInWithPassword({
+email,
+password
+});
+
+if(error){
+
+document.getElementById("loginMsg").innerText =
+"بيانات الدخول غير صحيحة ❌";
+
+return;
+}
+
+document.getElementById("loginBox")
+.classList.add("hidden");
+
+document.getElementById("dashboard")
+.classList.remove("hidden");
+
+loadBookings();
+}
+
+
+async function loadBookings(){
+
+const search =
+document.getElementById("search").value
+.toLowerCase();
+
+const {data,error} =
+await supabaseClient
+.from("bookings")
+.select("*")
+.order("date",{ascending:true});
+
+if(error){
+
+document.getElementById("bookings").innerHTML =
+"<p>حدث خطأ في تحميل الحجوزات ❌</p>";
+
+console.error(error);
+return;
+}
+
+const filtered =
+data.filter(b =>
+(b.name || "").toLowerCase().includes(search)
+);
+
+if(filtered.length === 0){
+
+document.getElementById("bookings").innerHTML =
+"<div class='card'>لا توجد حجوزات حالياً.</div>";
+
+return;
+}
+
+let html = "";
+
+filtered.forEach(b => {
+
+html += `
+
+<div class="card">
+
+<h3>${b.name || "بدون اسم"}</h3>
+
+<p>💄 الخدمة: ${b.service || "-"}</p>
+
+<p>📅 التاريخ: ${b.date || "-"}</p>
+
+<p>⏰ الوقت: ${b.time || "-"}</p>
+
+<p>📝 الملاحظات: ${b.notes || "-"}</p>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("bookings").innerHTML = html;
+}
+
+
+async function logout(){
+
+await supabaseClient.auth.signOut();
+
+document.getElementById("dashboard")
+.classList.add("hidden");
+
+document.getElementById("loginBox")
+.classList.remove("hidden");
+}
+
+</script>
+
+</body>
+</html>
