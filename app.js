@@ -18,7 +18,7 @@ form.addEventListener("submit", async (e) => {
       phone: document.getElementById("phone").value,
       service: document.getElementById("service").value,
       booking_date: document.getElementById("date").value,
-      booking_time: "غير محدد",
+      booking_time: document.getElementById("time").value,
       notes: document.getElementById("notes").value
     }]);
 
