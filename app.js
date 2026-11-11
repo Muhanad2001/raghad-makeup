@@ -13,14 +13,16 @@ form.addEventListener("submit", async (e) => {
 
   const { error } = await client
     .from("bookings")
-    .insert([{
-      customer_name: document.getElementById("name").value,
-      phone: document.getElementById("phone").value,
-      service: document.getElementById("service").value,
-      booking_date: document.getElementById("date").value,
-      booking_time: document.getElementById("time").value,
-      notes: document.getElementById("notes").value
-    }]);
+    .insert([
+      {
+        customer_name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        service: document.getElementById("service").value,
+        booking_date: document.getElementById("date").value,
+        booking_time: document.getElementById("time").value,
+        notes: document.getElementById("notes").value
+      }
+    ]);
 
   if (error) {
     console.error(error);
