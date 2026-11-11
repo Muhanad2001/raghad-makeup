@@ -24,7 +24,7 @@ form.addEventListener("submit", async (e) => {
 
   if (error) {
     console.error(error);
-    msg.textContent = "حدث خطأ أثناء الحجز ❌";
+    msg.textContent = "حدث خطأ: " + error.message;
     return;
   }
 
