@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Raghad Makeup | حجز ميكب</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <img src="assets/logo.png" class="logo" alt="Raghad Makeup">
+  <p>إطلالتك تبدأ من هنا ✨</p>
+  <a class="btn" href="#booking">احجزي موعدك</a>
+</header>
+<main>
+<section class="card intro"><h2>الخدمات والأسعار</h2>
+<div class="grid">
+<article><h3>ميكب حضور ✨</h3><p>الهادي (الوسط) — <b>15 ر.ع</b><br>السبيشل الناعم — <b>18 ر.ع</b><br>السبيشل الثقيل — <b>20 ر.ع</b><br>مع أو بدون رموش</p><small>العدسات 4 ر.ع مع الحافظة</small></article>
+<article><h3>ميكب العرايس 👰🏻‍♀️</h3><p>ملكة (خطوبة 💍) — <b>40 ر.ع</b><br>عروس (زفة) — <b>80 ر.ع</b><br>عروس صباحية / مسائية — <b>25 ر.ع</b><br>عروس حفل حناء — <b>25 ر.ع</b></p></article>
+<article><h3>ميكب تخرج 👩🏻‍🎓</h3><p><b>15 ر.ع</b> مع رموش أو بدون</p></article>
+</div></section>
+<section id="booking" class="card"><h2>حجز موعد</h2>
+<div class="deposit">💵 الحجز يثبت بعربون <b>5 ريالات عمانية</b></div>
+<form id="bookingForm">
+<label>الاسم الكامل<input id="name" required placeholder="اكتبي اسمك"></label>
+<label>رقم الهاتف<input id="phone" required inputmode="tel" placeholder="79345991"></label>
+<label>الخدمة<select id="service" required><option value="">اختاري الخدمة</option><option>ميكب حضور - الهادي 15 ر.ع</option><option>ميكب حضور - السبيشل الناعم 18 ر.ع</option><option>ميكب حضور - السبيشل الثقيل 20 ر.ع</option><option>ملكة (خطوبة) 40 ر.ع</option><option>عروس (زفة) 80 ر.ع</option><option>عروس صباحية / مسائية 25 ر.ع</option><option>عروس حفل حناء 25 ر.ع</option><option>ميكب تخرج 15 ر.ع</option></select></label>
+<div class="two"><label>التاريخ<input id="date" type="date" required></label><label>الوقت<input id="time" type="time" required></label></div>
+<label>ملاحظات<textarea id="notes" rows="4" placeholder="أي ملاحظات إضافية"></textarea></label>
+<button class="btn" type="submit">إرسال الحجز</button><p id="msg" class="msg"></p>
+</form></section>
+<section class="card rules"><h2>شروط الحجز</h2><ul><li>ممنوع اصطحاب الأطفال لغير الرضع ❌</li><li>الأسعار ثابتة ✅</li><li>التأخير أكثر من 15 دقيقة يلغي الحجز ✋🏻</li><li>ممنوع الصبر بتاتاً ❌</li><li>ممنوع التجمع في غرفة الميكب ❌</li><li>الحجز يثبت بعربون 5 ريالات عمانية 💵</li></ul></section>
+</main>
+<footer>للتواصل والاستفسار عن الشعر 🎀 <a href="tel:79345991">79345991</a><br>© Raghad Makeup</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script><script src="app.js"></script>
+</body></html>
